@@ -1,71 +1,80 @@
 ---
-title: "A3: Incarceration"
+title: "A4: Incarceration"
 output: html_document
 ---
 
 ### Introduction
 
-An introduction of the problem domain and a description of the variable(s) you are choosing to analyze (and why!)
+
+The United States has the highest incarceration rate in the world. This issue is compounded by significant racial disparities, with Black Americans incarcerated at disproportionately high rates due to systemic racism. Understanding these trends is crucial for developing informed policies and address the inequalities. This report uses data from the Vera Institute to analyze incarceration trends over time, focusing on variables such as total jail population and racial demographics by visualizing it on different types charts. I plan on analyzing black jail population, total jail population, white jail population, etc. to bring out the disparities.
+
 
 ### Summary Information
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
+```{r summary, echo=FALSE, message=FALSE}
+source("summary.R")
+print(summary)
+```
 
-These will likely be calculated using your DPLYR skills, answering questions such as: 
-
-- What is the average value of my variable across all the counties (in the current year)?
-- Where is my variable the highest / lowest?
-- How much has my variable change over the last N years?
-
-Feel free to calculate and report values that you find relevant. Again, remember that the purpose is to think about how these measure of incarceration vary by race.
+The summary majorly uses 2018 data as it is the most recent year in the dataset. I used dplyr to find the average jail population, county with the highest jail population(LA county) and the maximum population in 2018. Since this project is about finding race related data, I calculated that more than 1/3 of the total jail population (~33.6%) comprised of black individuals in 2018 in the US. I also found that the number of black individuals in jail has increased by 44.6% from 1990 to 2018, while the number of white individuals has increased by 108.2%. I even found that there are approx 6 times more males than females.
 
 ### The Dataset
 
-Who collected the data?  
+Who collected the data?    
+
+- Collected by Vera Institute, the data has made neat and posted on GitHub by Melanie Walsh  
+
 How was the data collected or generated?  
+  
+- This data was collected by Vera institute from two Bureau of Justice Statistics (BJS) data collections: the Census of Jails (COJ), which covers all jails and is conducted every five to eight years since 1970, and the Annual Survey of Jails (ASJ), which covers about one-third of jails-and includes nearly all of the largest jails-that has been conducted in non-census years since 1982.The data was also gathered from other sources like state and county records. Melanie Walsh split the datasets to make it smaller and more accessible.
+  
 Why was the data collected?  
-How many observations (rows) are in your data?  
+  
+- The dataset was collected by the Vera Institute as part of their initiative to track incarceration trends in the United States. Melanie Walsh split the datasets to make it smaller and more accessible.    
+    
+How many observations (rows) are in your data?   
+
+- 153811 observations  
+
 How many features (columns) are in the data?  
+
+- 28 variables  
+
 What, if any, ethical questions or questions of power do you need to consider when working with this data?  
-What are possible limitations or problems with this data?   (at least 200 words)
+- One of the ethical consideration is the potential for reinforcing stereotypes when analyzing the data. It is important to use the data to promote equity and justice.
+- Due to the large time frame that the data was collected, how do we ensure the same or similar data collection strategies were used throughout?
+- Since this data has been collected from other sources and databases several times, how can we make sure that the collector was not biased?  
 
+What are possible limitations or problems with this data?   (at least 200 words)  
 
+- The dataset has got a lot of NA values(blank spaces). This reduces the statistical power and can misrepresent a population. Missing data can introduce bias, especially if the missingness is not random. If certain types of data are more likely to be missing, the results may not accurately reflect the truth.
+
+- In addition, the data collected is the number of individuals in jail is calculated over the course of a year rather than collecting exact data per month. This can cause problems with exact data values and reliability. Fluctuations in the jail population are not visible in this data set which can be significant in analyzing. I believe this population was calculated by taking a mean which can hide significant data or even outliers are ignored. Relying entirely on yearly averages can hide important trends and variations that occur throughout the year. For example, crime rates increase during certain seasons, policy changes, etc. 
+  
+- The data only includes 2 genders which shows the collecting bias. The data also does not include mixed race individuals which again results in a lack of representation and potential bias when collecting. The absence of these categories means that the dataset fails to capture the full diversity of the jail population, which is crucial for understanding and analyzing the trends.   
+    
 ### Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The first chart that you will create and include will show the trend over time of your variable/topic. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - This may mean showing the same measure for different locations or different racial groups. Think carefully about a meaningful comparison of locations (e.g., the top 10 counties in a state, top 10 states, etc.)
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart1_example.R")}
+```{r, echo = FALSE, message = FALSE}
+source("chart1.R")
+plot(graph)
 ```
+  
+  This is a line graph that shows the increasing jail population in the US where each line signifies a race. This type of chart allows one to compare multiple trends between the racial groups and showcases all disparities. This design allows us to highlight disparities between racial groups, which is central to the analysis of incarceration trends.The graph shows that from 1970 to the mid 1980s the jail population is 0 because of missing/NA values in the dataset (highlights limitation of the dataset). This shows a spike in the number of arrest in the mid 1980s which is untrue. In 1990s the Black jail population was higher than the white population even when the total White population was higher than the black population highlighting racism prevalent in the US during those times. The Black jail population seems to be decreasing in the last few years while the White jail population has been increasing rapidly. This trend highlights the reduction in racism over the past few years. The Latin jail population saw a notable increase, but the trend shows some fluctuation with peaks and troughs over the years. Asian American/Pacific Islander and Native Populations have relatively low jail populations compared to others maybe because of their relatively low population in the country.The White and Black population seem to be the most significant in this chart and these varying trends between them can help policymakers study the impact of past policies on jail population.
 
 ### Variable Comparison Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The second chart that you will create and include will show how two different (continuous) variables are related to one another. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- If you choose to add a color encoding (not required), you need a legend for your different color and a clear legend title
+```{r, echo = FALSE, message = FALSE}
+source("chart2.R")
+plot(scatter_plot)
+```
+  
+  This chart is a scatterplot that finds an assosciation between the Total Jail population and Black jail population. A dotted black trend line is included to indicate the overall trend in the data. This helps viewers quickly assess the general relationship between the total jail population and the Black jail population. The chart visually demonstrates the relationship between two continuous variables (The population in this dataset is a continuous variable). It also allows for the identification of disparities in incarceration rates among different states. I specifically chose the black community to highlight disparities and since they are have one of the highest jail population. States with points far above the trend line have disproportionately high Black jail populations compared to their total jail populations, which indicates potential issues of racial disparity and bias in the criminal justice system. The comparison by states can also help identify which states have a high disparity. The graph clearly shows a positive association in Total Jail population and Black Jail population i.e., with an increase in Total Jail Population there is an increase in Black Jail Population. Policymakers can use this chart to see the broader impact of incarceration policies and their disproportionate effects on Black populations. 
 
 ### Map
-
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The last chart that you will create and include will show how a variable is distributed geographically. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Your map needs a title
-- Your color scale needs a legend with a clear label
-- Use a map based coordinate system to set the aspect ratio of your map
-
+```{r, echo = FALSE, message = FALSE}
+source("chart3.R")
+plot(mapplot)
+```
+  
+  The map visualizes the ratio of Black to White jail populations by state in the United States for the year 2018. This map is significant as it helps to illustrate racial disparities in the US criminal justice system across different states by visualizing it on the map itself. The map highlights the differences in incarceration rates between Black and White populations where some states have a surprisingly higher ratio. A ratio greater than 1 indicates more Black Jail population than the White Jail population. The eastern states, particularly in the Southeast and Mid-Atlantic regions, tend to have higher Black to White jail population ratios while western and north western states have lower ratios. This indicates disparities which may vary geographically because of regional policies, socio-economic factors, and historical contexts. This can again help local policy maker create equitable policies.
